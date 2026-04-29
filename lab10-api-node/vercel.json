@@ -1,4 +1,11 @@
 {
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/recommendations",
+      "permanent": false
+    }
+  ],
   "rewrites": [
     {
       "source": "/recommendations",
@@ -8,5 +15,10 @@
       "source": "/recommendations/:user_id",
       "destination": "/api/recommendations/:user_id"
     }
-  ]
+  ],
+  "functions": {
+    "api/recommendations/**/*.js": {
+      "includeFiles": "data/**"
+    }
+  }
 }
