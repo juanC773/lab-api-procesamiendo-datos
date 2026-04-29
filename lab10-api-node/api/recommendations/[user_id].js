@@ -1,4 +1,4 @@
-const { getUserMap } = require("../../lib/recommendations");
+const { getUserJsonString, JSON_UTF8 } = require("../../lib/recommendations");
 
 module.exports = (req, res) => {
   if (req.method !== "GET") {
@@ -6,14 +6,16 @@ module.exports = (req, res) => {
   }
 
   try {
-    const map = getUserMap();
     const { user_id } = req.query;
-    const found = map.get(String(user_id));
+    const body = getUserJsonString(user_id);
 
-    if (!found) {
+    if (body === null) {
       return res.status(404).json({ error: "User not found" });
     }
-    return res.status(200).json(found);
+
+    res.setHeader("Content-Type", JSON_UTF8);
+    res.setHeader("Cache-Control", "public, s-maxage=300, stale-while-revalidate=600");
+    return res.status(200).send(body);
   } catch (error) {
     return res.status(500).json({
       error: "Internal server error",

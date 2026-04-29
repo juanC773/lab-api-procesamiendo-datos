@@ -1,4 +1,7 @@
-const { loadRecommendationsArray } = require("../../lib/recommendations");
+const {
+  getFullListJsonString,
+  JSON_UTF8
+} = require("../../lib/recommendations");
 
 module.exports = (req, res) => {
   if (req.method !== "GET") {
@@ -6,8 +9,11 @@ module.exports = (req, res) => {
   }
 
   try {
-    const recommendations = loadRecommendationsArray();
-    return res.status(200).json(recommendations);
+    const body = getFullListJsonString();
+    res.setHeader("Content-Type", JSON_UTF8);
+    // Datos estáticos del lab: cache corto en CDN de Vercel (menos cold hits percibidos)
+    res.setHeader("Cache-Control", "public, s-maxage=300, stale-while-revalidate=600");
+    return res.status(200).send(body);
   } catch (error) {
     return res.status(500).json({
       error: "Internal server error",
