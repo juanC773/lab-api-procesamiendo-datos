@@ -1,29 +1,4 @@
-const fs = require("fs");
-const path = require("path");
-
-let cachedData = null;
-let userMap = null;
-
-function loadRecommendationsMap() {
-  if (userMap) return userMap;
-
-  if (!cachedData) {
-    const dataPath = path.join(process.cwd(), "data", "recommendations.json");
-    const raw = fs.readFileSync(dataPath, "utf8");
-    const parsed = JSON.parse(raw);
-
-    if (!Array.isArray(parsed)) {
-      throw new Error("data/recommendations.json must be an array");
-    }
-    cachedData = parsed;
-  }
-
-  userMap = new Map();
-  for (const row of cachedData) {
-    userMap.set(String(row.user_id), row);
-  }
-  return userMap;
-}
+const { getUserMap } = require("../../lib/recommendations");
 
 module.exports = (req, res) => {
   if (req.method !== "GET") {
@@ -31,7 +6,7 @@ module.exports = (req, res) => {
   }
 
   try {
-    const map = loadRecommendationsMap();
+    const map = getUserMap();
     const { user_id } = req.query;
     const found = map.get(String(user_id));
 

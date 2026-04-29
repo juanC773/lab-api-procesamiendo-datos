@@ -17,7 +17,7 @@
     }
   ],
   "functions": {
-    "api/recommendations/**/*.js": {
+    "api/**/*.js": {
       "includeFiles": "data/**"
     }
   }
