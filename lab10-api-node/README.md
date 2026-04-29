@@ -1,5 +1,7 @@
 # Lab 10 API (Node + Vercel)
 
+#Pablo Guzmán - Juan Calderón
+
 API REST para exponer recomendaciones de películas (Laboratorio Semana 10).
 
 ## Objetivo
