@@ -1,0 +1,12 @@
+{
+  "name": "lab10-recommendations-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Laboratorio Semana 10 API REST for movie recommendations",
+  "scripts": {
+    "build:data": "node scripts/build-recommendations-data.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

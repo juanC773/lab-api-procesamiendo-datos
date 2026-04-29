@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/recommendations",
+      "destination": "/api/recommendations"
+    },
+    {
+      "source": "/recommendations/:user_id",
+      "destination": "/api/recommendations/:user_id"
+    }
+  ]
+}
